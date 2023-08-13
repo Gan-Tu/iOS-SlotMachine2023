@@ -96,29 +96,32 @@ struct ContentView: View {
                             Text("20")
                                 .fontWeight(.heavy)
                                 .foregroundColor(.white)
-                                .font(.system(.title, design: .rounded))
-                                .padding(.vertical, 5)
-                                .frame(width: 90)
-                                .shadow(color: Color("ColorTransparentBlack"), radius: 0, x:0, y:3)
+                                .modifier(BetNumberModifier())
                         }
-                        .background(
-                            Capsule()
-                                .fill(LinearGradient(gradient: Gradient(colors: [Color("ColorPink"), Color("ColorPurple")]), startPoint: .top, endPoint: .bottom))
-                                .padding(3)
-                                .background(
-                                    Capsule()
-                                        .fill(LinearGradient(gradient: Gradient(colors: [Color("ColorPink"), Color("ColorPurple")]), startPoint: .bottom, endPoint: .top))
-                                    
-                                )
-                        )
+                        .modifier(BetCapsuleModifier())
                         
                         Image("gfx-casino-chips")
                             .resizable()
+                            .opacity(0)
+                            .modifier(CasinoChipsModifier())
+                    }
+                    
+                    // MARK: - BET 10
+                    HStack(alignment: .center, spacing: 10) {
+                        Image("gfx-casino-chips")
+                            .resizable()
                             .opacity(1)
-                            .scaledToFit()
-                            .frame(height: 64)
-                            .animation(.default)
-                            .modifier(ShadowModifier())
+                            .modifier(CasinoChipsModifier())
+                        
+                        Button(action: {
+                            // TODO
+                        }) {
+                            Text("10")
+                                .fontWeight(.heavy)
+                                .foregroundColor(.yellow)
+                                .modifier(BetNumberModifier())
+                        }
+                        .modifier(BetCapsuleModifier())
                     }
                 }
                 
