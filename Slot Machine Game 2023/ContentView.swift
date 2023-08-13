@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var showingInfoView: Bool = false
     @State private var showingGameOverModal: Bool = false
     @State private var reels: Array = [0, 1, 2]
-    @State private var highScore: Int = 0
+    @State private var highScore: Int = UserDefaults.standard.integer(forKey: "HighScore")
     @State private var coins: Int = 250
     @State private var betAmount: Int = 10
     
@@ -31,6 +31,7 @@ struct ContentView: View {
             coins += betAmount * 10
             if coins > highScore {
                 highScore = coins
+                UserDefaults.standard.set(highScore, forKey: "HighScore")
             }
         } else {
             coins -= betAmount
@@ -45,8 +46,11 @@ struct ContentView: View {
     }
     
     func resetGame() {
-        self.showingGameOverModal = false
-        self.coins = 250
+        UserDefaults.standard.set(0, forKey: "HighScore")
+        highScore = 0
+        showingGameOverModal = false
+        coins = 250
+        betAmount = 10
     }
     
     var body: some View {
