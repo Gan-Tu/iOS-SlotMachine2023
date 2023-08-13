@@ -10,6 +10,7 @@
 		59978ED92A8859E60059305D /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59978ED82A8859E60059305D /* LogoView.swift */; };
 		59978EDB2A885A150059305D /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59978EDA2A885A150059305D /* Modifiers.swift */; };
 		59978EDD2A885BD20059305D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59978EDC2A885BD20059305D /* Extensions.swift */; };
+		59978EDF2A885DC00059305D /* ReelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59978EDE2A885DC00059305D /* ReelView.swift */; };
 		59985BA12A75BEA500644868 /* Slot_Machine_Game_2023App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59985BA02A75BEA500644868 /* Slot_Machine_Game_2023App.swift */; };
 		59985BA32A75BEA500644868 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59985BA22A75BEA500644868 /* ContentView.swift */; };
 		59985BA52A75BEA700644868 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 59985BA42A75BEA700644868 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		59978ED82A8859E60059305D /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogoView.swift; path = "Slot Machine Game 2023/LogoView.swift"; sourceTree = SOURCE_ROOT; };
 		59978EDA2A885A150059305D /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Modifiers.swift; path = "Slot Machine Game 2023/Views/Modifiers.swift"; sourceTree = SOURCE_ROOT; };
 		59978EDC2A885BD20059305D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = "Slot Machine Game 2023/Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		59978EDE2A885DC00059305D /* ReelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReelView.swift; sourceTree = "<group>"; };
 		59985B9D2A75BEA500644868 /* Slot Machine Game 2023.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Slot Machine Game 2023.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59985BA02A75BEA500644868 /* Slot_Machine_Game_2023App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slot_Machine_Game_2023App.swift; sourceTree = "<group>"; };
 		59985BA22A75BEA500644868 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				59978ED82A8859E60059305D /* LogoView.swift */,
+				59978EDE2A885DC00059305D /* ReelView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59978EDF2A885DC00059305D /* ReelView.swift in Sources */,
 				59978EDD2A885BD20059305D /* Extensions.swift in Sources */,
 				59978EDB2A885A150059305D /* Modifiers.swift in Sources */,
 				59985BA32A75BEA500644868 /* ContentView.swift in Sources */,

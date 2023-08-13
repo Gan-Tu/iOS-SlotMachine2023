@@ -43,6 +43,49 @@ struct ContentView: View {
                     .modifier(ScoreContainerModifier())
                 }
                 
+                VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 0) {
+                    // MARK: - REEL #1
+                    ZStack {
+                        ReelView()
+                        Image("gfx-bell")
+                            .resizable()
+                            .modifier(ImageModifier())
+                    }
+
+                    HStack(alignment: .center, spacing: 0) {
+                        // MARK: - REEL #2
+                        ZStack {
+                            ReelView()
+                            Image("gfx-seven")
+                                .resizable()
+                                .modifier(ImageModifier())
+                        }
+                        
+                        Spacer()
+                        
+                        // MARK: - REEL #3
+                        ZStack {
+                            ReelView()
+                            Image("gfx-cherry")
+                                .resizable()
+                                .modifier(ImageModifier())
+                        }
+                    }
+                    .frame(maxWidth: 500)
+                    
+                    // MARK: - SPIN BUTTON
+                    
+                    Button(action: {
+                        // TODO
+                    }) {
+                        Image("gfx-spin")
+                            .renderingMode(.original)
+                            .resizable()
+                            .modifier(ImageModifier())
+                    }
+                }
+                
+                
                 Spacer ()
                 
             }
