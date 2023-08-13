@@ -17,6 +17,7 @@ struct ContentView: View {
     @State private var betAmount: Int = 10
     @State private var animatingSymbols: Bool = false
     @State private var animatingGameOverModal: Bool = false
+    @State private var backdoorActivated: Bool = false
     
     let symbols = [
         "gfx-bell", "gfx-cherry", "gfx-coin", "gfx-grape", "gfx-seven", "gfx-strawberry"
@@ -26,9 +27,15 @@ struct ContentView: View {
     // MARK: - FUNCTIONS
     
     func spinReels() {
-        reels = reels.map({_ in Int.random(in: 0...symbols.count-1)})
+        if backdoorActivated {
+            let winningSymbol = Int.random(in: 0...symbols.count-1)
+            reels = reels.map({_ in winningSymbol})
+        } else {
+            reels = reels.map({_ in Int.random(in: 0...symbols.count-1)})
+        }
         playSound(sound: "spin", type: "mp3")
         haptics.notificationOccurred(.success)
+        self.backdoorActivated = false
     }
 
     func checkWinning() {
@@ -61,6 +68,7 @@ struct ContentView: View {
         coins = 100
         betAmount = 10
         playSound(sound: "chimeup", type: "mp3")
+        backdoorActivated = false
     }
     
     var body: some View {
@@ -69,6 +77,11 @@ struct ContentView: View {
             
             VStack(alignment: .center, spacing: 5) {
                 LogoView()
+                    .gesture(
+                        LongPressGesture(minimumDuration: 0.5).onEnded({_ in
+                            self.backdoorActivated.toggle()
+                        })
+                    )
                 
                 Spacer()
                 
@@ -277,6 +290,7 @@ struct ContentView: View {
                                 self.animatingGameOverModal = false
                                 betAmount = 10
                                 coins = 100
+                                self.backdoorActivated = false
                             }) {
                                 Text("New game".uppercased())
                                     .font(.system(.body, design: .rounded))
