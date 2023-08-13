@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var showingGameOverModal: Bool = false
     @State private var reels: Array = [0, 1, 2]
     @State private var highScore: Int = 0
-    @State private var coins: Int = 100
+    @State private var coins: Int = 250
     @State private var betAmount: Int = 10
     
     let symbols = [
@@ -42,6 +42,11 @@ struct ContentView: View {
         if coins <= 0 {
             showingGameOverModal = true
         }
+    }
+    
+    func resetGame() {
+        self.showingGameOverModal = false
+        self.coins = 250
     }
     
     var body: some View {
@@ -169,7 +174,7 @@ struct ContentView: View {
             .overlay(alignment: .topLeading) {
                 // MARK: - RESET BUTTON
                 Button(action: {
-                    // TODO
+                    self.resetGame()
                 }, label: {
                     Image(systemName: "arrow.2.circlepath.circle")
                 })
@@ -219,8 +224,7 @@ struct ContentView: View {
                                 .layoutPriority(1)
                             
                             Button(action: {
-                                self.showingGameOverModal = false
-                                self.coins = 100
+                                self.resetGame()
                             }) {
                                 Text("New game".uppercased())
                                     .font(.system(.body, design: .rounded))
