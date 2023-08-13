@@ -43,16 +43,14 @@ struct ContentView: View {
             }
         } else {
             coins -= betAmount
-            if coins <= 0 {
-                showingGameOverModal = true
-            }
+            isGameOver()
         }
     }
     
     func isGameOver() {
         if coins <= 0 {
-            showingGameOverModal = true
             playSound(sound: "game-over", type: "mp3")
+            showingGameOverModal = true
         }
     }
     
