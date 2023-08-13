@@ -13,8 +13,10 @@ struct ContentView: View {
     @State private var showingGameOverModal: Bool = false
     @State private var reels: Array = [0, 1, 2]
     @State private var highScore: Int = UserDefaults.standard.integer(forKey: "HighScore")
-    @State private var coins: Int = 250
+    @State private var coins: Int = 100
     @State private var betAmount: Int = 10
+    @State private var animatingSymbols: Bool = false
+    @State private var animatingGameOverModal: Bool = false
     
     let symbols = [
         "gfx-bell", "gfx-cherry", "gfx-coin", "gfx-grape", "gfx-seven", "gfx-strawberry"
@@ -35,7 +37,9 @@ struct ContentView: View {
             }
         } else {
             coins -= betAmount
-            // GAME OVER
+            if coins <= 0 {
+                showingGameOverModal = true
+            }
         }
     }
     
@@ -49,7 +53,7 @@ struct ContentView: View {
         UserDefaults.standard.set(0, forKey: "HighScore")
         highScore = 0
         showingGameOverModal = false
-        coins = 250
+        coins = 100
         betAmount = 10
     }
     
@@ -95,6 +99,12 @@ struct ContentView: View {
                         Image(symbols[reels[0]])
                             .resizable()
                             .modifier(ImageModifier())
+                            .opacity(animatingSymbols ? 1 : 0)
+                            .offset(y: animatingSymbols ? 0 : -50)
+                            .animation(.easeOut(duration: Double.random(in: 0.5...0.7)))
+                            .onAppear(perform: {
+                                self.animatingSymbols.toggle()
+                            })
                     }
 
                     HStack(alignment: .center, spacing: 0) {
@@ -104,6 +114,12 @@ struct ContentView: View {
                             Image(symbols[reels[1]])
                                 .resizable()
                                 .modifier(ImageModifier())
+                                .opacity(animatingSymbols ? 1 : 0)
+                                .offset(y: animatingSymbols ? 0 : -50)
+                                .animation(.easeOut(duration: Double.random(in: 0.7...0.9)))
+                                .onAppear(perform: {
+                                    self.animatingSymbols.toggle()
+                                })
                         }
                         
                         Spacer()
@@ -114,6 +130,12 @@ struct ContentView: View {
                             Image(symbols[reels[2]])
                                 .resizable()
                                 .modifier(ImageModifier())
+                                .opacity(animatingSymbols ? 1 : 0)
+                                .offset(y: animatingSymbols ? 0 : -50)
+                                .animation(.easeOut(duration: Double.random(in: 0.9...1.1)))
+                                .onAppear(perform: {
+                                    self.animatingSymbols.toggle()
+                                })
                         }
                     }
                     .frame(maxWidth: 500)
@@ -121,9 +143,17 @@ struct ContentView: View {
                     
                     // MARK: - SPIN BUTTON
                     Button(action: {
+                        withAnimation {
+                            self.animatingSymbols = false
+                        }
+                        
                         self.spinReels()
+                        
+                        withAnimation {
+                            self.animatingSymbols = true
+                        }
+
                         self.checkWinning()
-                        self.isGameOver()
                     }) {
                         Image("gfx-spin")
                             .renderingMode(.original)
@@ -151,14 +181,18 @@ struct ContentView: View {
                         
                         Image("gfx-casino-chips")
                             .resizable()
+                            .offset(x: betAmount == 20 ? 0 : 20)
                             .opacity(betAmount == 20 ? 1 : 0)
                             .modifier(CasinoChipsModifier())
                     }
+                    
+                    Spacer()
                     
                     // MARK: - BET 10
                     HStack(alignment: .center, spacing: 10) {
                         Image("gfx-casino-chips")
                             .resizable()
+                            .offset(x: betAmount == 10 ? 0 : -20)
                             .opacity(betAmount == 10 ? 1 : 0)
                             .modifier(CasinoChipsModifier())
                         
@@ -228,7 +262,10 @@ struct ContentView: View {
                                 .layoutPriority(1)
                             
                             Button(action: {
-                                self.resetGame()
+                                self.showingGameOverModal = false
+                                self.animatingGameOverModal = false
+                                betAmount = 10
+                                coins = 100
                             }) {
                                 Text("New game".uppercased())
                                     .font(.system(.body, design: .rounded))
@@ -251,8 +288,13 @@ struct ContentView: View {
                     .background(Color.white)
                     .cornerRadius(20)
                     .shadow(color: Color("ColorTransparentBlack"), radius: 6, x: 0, y:8)
-                    
-                    Spacer()
+                    .opacity($animatingGameOverModal.wrappedValue ? 1 : 0)
+                    .offset(y: $animatingGameOverModal.wrappedValue ? 1 : -100)
+                    .onAppear(perform: {
+                        withAnimation(.spring(response: 0.6, dampingFraction: 1.0, blendDuration: 1.0)) {
+                            self.animatingGameOverModal = true
+                        }
+                    })
                 }
             }
             
