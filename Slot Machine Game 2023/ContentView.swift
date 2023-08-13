@@ -74,7 +74,6 @@ struct ContentView: View {
                     .frame(maxWidth: 500)
                     
                     // MARK: - SPIN BUTTON
-                    
                     Button(action: {
                         // TODO
                     }) {
@@ -87,6 +86,41 @@ struct ContentView: View {
                 
                 
                 Spacer ()
+                
+                HStack {
+                    // MARK: - BET 20
+                    HStack(alignment: .center, spacing: 10) {
+                        Button(action: {
+                            // TODO
+                        }) {
+                            Text("20")
+                                .fontWeight(.heavy)
+                                .foregroundColor(.white)
+                                .font(.system(.title, design: .rounded))
+                                .padding(.vertical, 5)
+                                .frame(width: 90)
+                                .shadow(color: Color("ColorTransparentBlack"), radius: 0, x:0, y:3)
+                        }
+                        .background(
+                            Capsule()
+                                .fill(LinearGradient(gradient: Gradient(colors: [Color("ColorPink"), Color("ColorPurple")]), startPoint: .top, endPoint: .bottom))
+                                .padding(3)
+                                .background(
+                                    Capsule()
+                                        .fill(LinearGradient(gradient: Gradient(colors: [Color("ColorPink"), Color("ColorPurple")]), startPoint: .bottom, endPoint: .top))
+                                    
+                                )
+                        )
+                        
+                        Image("gfx-casino-chips")
+                            .resizable()
+                            .opacity(1)
+                            .scaledToFit()
+                            .frame(height: 64)
+                            .animation(.default)
+                            .modifier(ShadowModifier())
+                    }
+                }
                 
             }
             .overlay(alignment: .topLeading) {
