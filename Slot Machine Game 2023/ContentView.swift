@@ -26,6 +26,7 @@ struct ContentView: View {
     
     func spinReels() {
         reels = reels.map({_ in Int.random(in: 0...symbols.count-1)})
+        playSound(sound: "spin", type: "mp3")
     }
 
     func checkWinning() {
@@ -34,6 +35,9 @@ struct ContentView: View {
             if coins > highScore {
                 highScore = coins
                 UserDefaults.standard.set(highScore, forKey: "HighScore")
+                playSound(sound: "high-score", type: "mp3")
+            } else {
+                playSound(sound: "win", type: "mp3")
             }
         } else {
             coins -= betAmount
@@ -46,6 +50,7 @@ struct ContentView: View {
     func isGameOver() {
         if coins <= 0 {
             showingGameOverModal = true
+            playSound(sound: "game-over", type: "mp3")
         }
     }
     
@@ -55,11 +60,12 @@ struct ContentView: View {
         showingGameOverModal = false
         coins = 100
         betAmount = 10
+        playSound(sound: "chimeup", type: "mp3")
     }
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradient(colors: [Color("ColorPink"), Color("ColorPruple")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            LinearGradient(gradient: Gradient(colors: [Color("ColorPink"), Color("ColorPurple")]), startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
             
             VStack(alignment: .center, spacing: 5) {
                 LogoView()
@@ -104,6 +110,7 @@ struct ContentView: View {
                             .animation(.easeOut(duration: Double.random(in: 0.5...0.7)))
                             .onAppear(perform: {
                                 self.animatingSymbols.toggle()
+                                playSound(sound: "riseup", type: "mp3")
                             })
                     }
 
@@ -171,6 +178,7 @@ struct ContentView: View {
                     HStack(alignment: .center, spacing: 10) {
                         Button(action: {
                             betAmount = 20
+                            playSound(sound: "casino-chips", type: "mp3")
                         }) {
                             Text("20")
                                 .fontWeight(.heavy)
@@ -198,6 +206,7 @@ struct ContentView: View {
                         
                         Button(action: {
                             betAmount = 10
+                            playSound(sound: "casino-chips", type: "mp3")
                         }) {
                             Text("10")
                                 .fontWeight(.heavy)
